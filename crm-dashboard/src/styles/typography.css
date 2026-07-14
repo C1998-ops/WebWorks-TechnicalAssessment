@@ -1,0 +1,174 @@
+.text-huge {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.huge[0]');
+	line-height: theme('fontSize.huge[1].lineHeight');
+	font-weight: theme('fontSize.huge[1].fontWeight');
+	letter-spacing: theme('fontSize.huge[1].letterSpacing');
+}
+
+.heading-1 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.h1[0]');
+	line-height: theme('fontSize.h1[1].lineHeight');
+	font-weight: theme('fontSize.h1[1].fontWeight');
+	letter-spacing: theme('fontSize.h1[1].letterSpacing');
+}
+
+.heading-2 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.h2[0]');
+	line-height: theme('fontSize.h2[1].lineHeight');
+	font-weight: theme('fontSize.h2[1].fontWeight');
+	letter-spacing: theme('fontSize.h2[1].letterSpacing');
+}
+
+.heading-3 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.h3[0]');
+	line-height: theme('fontSize.h3[1].lineHeight');
+	font-weight: theme('fontSize.h3[1].fontWeight');
+	letter-spacing: theme('fontSize.h3[1].letterSpacing');
+	color: theme('colors.primary.navy');
+}
+@media (max-width: 420px) {
+	.heading-3 {
+		font-size: theme('fontSize.h4[0]');
+		line-height: theme('fontSize.h4[1].lineHeight');
+		font-weight: theme('fontSize.h4[1].fontWeight');
+		letter-spacing: theme('fontSize.h4[1].letterSpacing');
+		color: theme('colors.primary.navy');
+	}
+}
+
+.heading-4 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.h4[0]');
+	line-height: theme('fontSize.h4[1].lineHeight');
+	font-weight: theme('fontSize.h4[1].fontWeight');
+	letter-spacing: theme('fontSize.h4[1].letterSpacing');
+}
+
+.subheading-1 {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.subheading-1[0]');
+	line-height: theme('fontSize.subheading-1[1].lineHeight');
+	font-weight: theme('fontSize.subheading-1[1].fontWeight');
+}
+
+.subheading-2 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.subheading-3[0]');
+	line-height: theme('fontSize.subheading-2[1].lineHeight');
+	font-weight: theme('fontSize.body-bold[1].fontWeight');
+	color: theme('colors.primary.navy');
+}
+
+.subheading-3 {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.subheading-3[0]');
+	line-height: theme('fontSize.subheading-3[1].lineHeight');
+	font-weight: theme('fontSize.subheading-3[1].fontWeight');
+}
+
+.subheading-4 {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.subheading-4[0]');
+	line-height: theme('fontSize.subheading-4[1].lineHeight');
+	font-weight: theme('fontSize.subheading-4[1].fontWeight');
+}
+.subheading-5 {
+	font-family: theme('fontFamily.primary');
+	font-size: theme('fontSize.subheading-5[0]');
+	line-height: theme('fontSize.subheading-5[1].lineHeight');
+	font-weight: theme('fontSize.subheading-5[1].fontWeight');
+	color: theme('colors.primary.navy');
+}
+.text-body {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.body[0]');
+	line-height: theme('fontSize.body[1].lineHeight');
+	font-weight: theme('fontSize.body[1].fontWeight');
+}
+
+.text-body-bold {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.body-bold[0]');
+	line-height: theme('fontSize.body-bold[1].lineHeight');
+	font-weight: theme('fontSize.body-bold[1].fontWeight');
+}
+
+.text-label {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.label[0]');
+	line-height: theme('fontSize.label[1].lineHeight');
+	font-weight: theme('fontSize.label[1].fontWeight');
+}
+
+.text-small {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.small[0]');
+	line-height: theme('fontSize.small[1].lineHeight');
+	font-weight: theme('fontSize.small[1].fontWeight');
+}
+
+.text-small-bold {
+	font-family: theme('fontFamily.secondary');
+	font-size: theme('fontSize.small-bold[0]');
+	line-height: theme('fontSize.small-bold[1].lineHeight');
+	font-weight: theme('fontSize.small-bold[1].fontWeight');
+}
+
+.text-body-bold-primary {
+	font-family: theme('fontFamily.primary');
+	font-size: 0.75rem;
+	line-height: theme('fontSize.body-bold[1].lineHeight');
+	font-weight: theme('fontSize.body-bold[1].fontWeight');
+}
+
+@media (min-width: 640px) {
+	.text-body-bold-primary {
+		font-size: 15px;
+	}
+}
+.text-body-medium-primary {
+	font-family: theme('fontFamily.primary');
+	font-size: 0.75rem;
+	line-height: theme('fontSize.body-bold[1].lineHeight');
+	font-weight: theme('fontSize.medium[1].fontWeight');
+}
+@media screen and (min-width: 640px) {
+	.text-body-medium-primary {
+		font-size: 15px;
+	}
+}
+
+.table-cell-text {
+	line-height: 1.5;
+	letter-spacing: 0.01em;
+}
+
+.pending-invitation-container {
+	background: transparent;
+	border: none;
+	outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	padding: 0;
+}
+
+.care-team-avatar {
+	transition: all 0.2s ease-in-out;
+}
+
+.care-team-avatar:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.text-primary-medium::placeholder {
+	color: theme('colors.neutral.textGrey');
+	font-size: theme('fontSize.label[0]');
+	line-height: theme('fontSize.medium[1].lineHeight');
+	font-weight: theme('fontSize.medium[1].fontWeight');
+}

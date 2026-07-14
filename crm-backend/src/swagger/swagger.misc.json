@@ -1,0 +1,15 @@
+{
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": ["Misc"],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
+}

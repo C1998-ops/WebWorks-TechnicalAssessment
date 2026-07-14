@@ -1,0 +1,406 @@
+#root {
+	width: 100%;
+	margin: 0 auto;
+	padding: 2rem;
+	text-align: left;
+}
+
+.form-input {
+	@apply w-full h-12 bg-white px-3 border-2 border-neutral-borderGrey text-neutral-textGrey rounded-lg focus:outline-none focus:border-black placeholder:text-neutral-textGrey;
+}
+
+.form-label {
+	@apply block text-xs sm:text-sm md:text-base font-medium text-left text-neutral-dark mb-2;
+}
+
+.form-error {
+	@apply text-secondary-rust text-left text-sm mt-1;
+}
+
+.form-input-1 {
+	@apply w-full p-2 border rounded-md border-gray-300;
+}
+
+.form-input-1:hover {
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.form-input-1:focus-visible {
+	@apply outline-none;
+	border: 1px solid #a8a8a8;
+}
+
+.logo {
+	height: 6em;
+	padding: 1.5em;
+	will-change: filter;
+	transition: filter 300ms;
+}
+.logo:hover {
+	filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+	filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	a:nth-of-type(2) .logo {
+		animation: logo-spin infinite 20s linear;
+	}
+}
+
+.card {
+	padding: 2em;
+}
+
+.read-the-docs {
+	color: #fff;
+}
+
+.custom-radio {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #ccc;
+	background-color: #fff;
+	border-radius: 7px;
+	outline: none;
+	cursor: pointer;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	transition:
+		background 0.2s,
+		border 0.2s;
+}
+
+.custom-radio::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
+.custom-radio:checked {
+	background-color: #232323 !important;
+	border: 1px solid #232323;
+}
+
+.custom-radio:checked::after {
+	content: '\2713';
+	position: absolute;
+	color: #fff;
+	font-size: 16px;
+	display: flex;
+	height: 100%;
+	text-align: center !important;
+	align-items: center;
+	font-weight: bold;
+}
+
+.login-bg {
+	background-color: #6374ea1a;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100vh;
+	width: 100%;
+}
+
+.form-group {
+	padding: 10px 5px 0 0;
+	margin-bottom: 2px;
+	border: none;
+	box-sizing: content-box;
+}
+
+.date-input {
+	color: #838c9c !important;
+}
+
+/* Custom date input styling */
+input[type='date']::-webkit-calendar-picker-indicator {
+	background: transparent;
+	bottom: 0;
+	color: transparent;
+	cursor: pointer;
+	height: auto;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: auto;
+}
+
+input[type='date']::-webkit-datetime-edit {
+	color: #838c9c;
+}
+
+input[type='date']::-webkit-datetime-edit-fields-wrapper {
+	padding: 0;
+}
+
+input[type='date']::-webkit-datetime-edit-text {
+	padding: 0 2px;
+}
+
+input[type='date']::-webkit-datetime-edit-month-field,
+input[type='date']::-webkit-datetime-edit-day-field,
+input[type='date']::-webkit-datetime-edit-year-field {
+	padding: 0;
+}
+
+input[type='date']:focus::-webkit-datetime-edit {
+	color: #374151;
+}
+
+.custom-select-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.custom-select {
+	appearance: none !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	background: none !important;
+	width: 100% !important;
+	border: 2px solid #e5e7eb !important;
+	border-radius: 0.5rem !important;
+	color: #838c9c !important;
+	min-height: 2.5rem !important;
+	box-sizing: border-box !important;
+	padding-right: 2.5rem !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+}
+
+.custom-select.has-value {
+	color: #000000 !important;
+}
+
+.custom-select-icon {
+	pointer-events: none;
+	position: absolute;
+	right: 0.75rem;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 1.2rem;
+	color: #838c9c;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.account_wrapper {
+	box-sizing: content-box;
+	padding: 10px 0px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+}
+.account-label {
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 24px;
+	width: auto;
+	max-width: 150px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	position: relative;
+}
+.account-label::after {
+	content: ': ';
+	padding-left: 5px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 24px;
+	color: #838c9c;
+}
+/* global css for datepicker */
+.react-datepicker {
+	font-family: 'Inter', sans-serif;
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__header {
+	background-color: #f3f4f6;
+	border-bottom: none;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+	background-color: #7c3aed;
+	color: white;
+}
+/* bullet list for list items */
+.custom-list-item {
+	position: relative;
+	padding-left: 1rem;
+	color: #000;
+	font-size: 0.875rem;
+	list-style: none;
+
+	display: block;
+}
+.custom-list-item::before {
+	content: '•';
+	position: absolute;
+	left: 0;
+	top: 0.2rem;
+	font-size: 1rem;
+	line-height: 1;
+	color: #454649; /* Tailwind gray-500 */
+}
+
+button[class*='text-white'][class*='border-0'] {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+button[class*='text-white'][class*='border-0']:focus {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+button[class*='text-white'][class*='border-0']:active {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+button[class*='text-white'][class*='border-0']:hover {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+/* Additional targeting for any button with text-white class */
+button.text-white {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+button.text-white:focus,
+button.text-white:active,
+button.text-white:hover {
+	border: 0 !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
+
+/* Specific fix for sidebar textWhite buttons */
+.sidebar-scrollbar button[class*='text-white'],
+.sidebar-scrollbar button.text-white {
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+.sidebar-scrollbar button[class*='text-white']:focus,
+.sidebar-scrollbar button[class*='text-white']:active,
+.sidebar-scrollbar button[class*='text-white']:hover,
+.sidebar-scrollbar button.text-white:focus,
+.sidebar-scrollbar button.text-white:active,
+.sidebar-scrollbar button.text-white:hover {
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	background: transparent !important;
+}
+
+/* business item css */
+.business-hours-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 4px 0px;
+	outline: none;
+	border: none !important;
+	transition: all 0.3s ease;
+	transition-duration: 300ms;
+	position: relative;
+	padding-left: 20px;
+}
+.business-hours-item::after {
+	content: '';
+	position: absolute;
+	left: -8px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 4px;
+	height: 4px;
+	border-radius: 50%;
+	background-color: currentColor;
+}
+
+textarea {
+	background-color: white !important;
+}
+
+/* Hide number input arrows/spinners */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type='number'] {
+	-moz-appearance: textfield;
+}
+
+/* Firefox */
+input[type='number']::-moz-number-spin-box {
+	display: none;
+}
+
+/* Stepper Component Styles */
+.stepper-step {
+	transition: all 0.2s ease-in-out;
+}
+
+.stepper-circle {
+	transition: all 0.2s ease-in-out;
+}
+
+.stepper-connector {
+	transition: background-color 0.2s ease-in-out;
+}
+
+/* Responsive stepper adjustments */
+@media (max-width: 640px) {
+	.stepper-horizontal {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	
+	.stepper-horizontal .stepper-connector {
+		width: 0.5rem;
+		height: 2rem;
+		margin: 0.5rem 0;
+	}
+}
