@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth");
 const leadsRoutes = require("./routes/leads");
 const customersRoutes = require("./routes/customers");
 const { errorHandler } = require("./middleware/errorHandler");
+const corsOptions = require("../config/corsOptions");
 // swagger
 const swaggerUi = require("swagger-ui-express");
 const merged = require("./swagger");
@@ -21,12 +22,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 // ── Global middleware ──────────────────────────────────────────────────────
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true,
-  }),
-);
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
@@ -62,9 +58,7 @@ app.use((req, res) =>
 // Error handler
 app.use(errorHandler);
 app.listen(PORT, () => {
-  console.log(
-    `\n CRM Dashboard API running on http://localhost:${PORT}`,
-  );
+  console.log(`\n CRM Dashboard API running on http://localhost:${PORT}`);
   console.log(`   ENV: ${process.env.NODE_ENV || "development"}`);
 });
 
