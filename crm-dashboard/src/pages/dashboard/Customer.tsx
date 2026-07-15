@@ -1,15 +1,19 @@
-import { Button, SearchBar } from "@/components";
+import { Button, ModalParent, SearchBar } from "@/components";
 import DataTable from "@/components/TableComponent";
 import { TableColumn } from "@/components/TableComponent/types";
 import { useCustomers } from "@/hooks/useCustomers";
-import { CustomerRow } from "@/types/customer";
+import { CreateCustomerInput, CustomerRow } from "@/types/customer";
+import CreatorLead from "../CreatorLead";
 import { useMemo, useState } from "react";
 
 export const Customer = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [selectedRow, setSelectedRow] = useState<CreateCustomerInput | null>(
+    null,
+  );
   const { customers, isLoading, isError } = useCustomers();
 
   const columns: TableColumn<CustomerRow>[] = [
@@ -17,6 +21,7 @@ export const Customer = () => {
     { key: "email", header: "Email", width: "250px" },
     { key: "phone", header: "Phone", width: "150px" },
     { key: "company", header: "Company", width: "200px" },
+    { key: "isActive", header: "Status", width: "200px" },
     { key: "address", header: "Address", width: "250px" },
     { key: "createdAt", header: "Created", width: "120px" },
   ];
@@ -26,12 +31,8 @@ export const Customer = () => {
     if (!searchQuery) return customers;
 
     const query = searchQuery.toLowerCase();
-    return customers.filter(
-      (customer) =>
-        customer.name.toLowerCase().includes(query) ||
-        customer.email.toLowerCase().includes(query) ||
-        customer.phone.toLowerCase().includes(query) ||
-        customer.company.toLowerCase().includes(query)
+    return customers.filter((customer) =>
+      customer.name.toLowerCase().includes(query),
     );
   }, [customers, searchQuery]);
 
@@ -59,7 +60,11 @@ export const Customer = () => {
             setSearchQuery={setSearchQuery}
             searchQuery={searchQuery || ""}
           />
-          <Button variant="primary" size="small">
+          <Button
+            variant="primary"
+            size="small"
+            onClick={() => setModalOpen(!modalOpen)}
+          >
             Add Creator
           </Button>
         </div>
@@ -96,10 +101,37 @@ export const Customer = () => {
                     setCurrentPage(1);
                   },
                 }}
+                onRowClick={(row) => {
+                  setSelectedRow((prev) => {
+                    if (prev?.id === row.id) return null;
+                    // Convert isActive from string to number for editing
+                    return {
+                      ...row,
+                      isActive: row.isActive === "Active" ? 1 : 0,
+                    } as CreateCustomerInput;
+                  });
+                }}
               />
             )}
           </div>
         </div>
+        <ModalParent
+          isOpen={modalOpen || !!selectedRow}
+          onClose={() => {
+            if (modalOpen) setModalOpen(false);
+            else setSelectedRow(null);
+          }}
+          size="full"
+        >
+          <CreatorLead
+            onCancel={() => {
+              if (modalOpen) setModalOpen(false);
+              else setSelectedRow(null);
+            }}
+            leadId={selectedRow?.id || ""}
+            lead={selectedRow as CreateCustomerInput | undefined}
+          />
+        </ModalParent>
       </section>
     </div>
   );

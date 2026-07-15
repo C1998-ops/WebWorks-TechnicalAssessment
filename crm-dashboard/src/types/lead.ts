@@ -1,8 +1,4 @@
-export type LeadStatus =
-  | "all"
-  | "new"
-  | "assigned-leads"
-  | "converted-leads";
+export type LeadStatus = "all" | "new" | "assigned-leads" | "converted-leads";
 
 export type LeadPriority = "high" | "medium" | "low";
 
@@ -52,6 +48,7 @@ export interface DisplayLead {
   email: string;
   priority: string;
   budget: string;
+  estimated_value: number;
   // owner: string;
   lastActivity: string;
   notes: Array<{

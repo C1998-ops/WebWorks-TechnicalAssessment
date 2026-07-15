@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import Button from "@/components/Button";
 import { FormInput } from "@/components/CustomFormInput";
 import { useLeads } from "@/hooks/useLeads";
 import { LeadInput } from "@/types/lead";
+import { useToast } from "@/hooks/useToast";
 
 export type LeadFormValues = LeadInput;
 const LeadFormSchema = Yup.object().shape({
@@ -66,29 +67,31 @@ const FormLead: React.FC<{
     customer_id: lead?.customer_id || "",
     assigned_to: lead?.assigned_to || "",
   };
-  const [loading, setLoading] = useState<boolean>(false);
-  const { createLead, updateLead } = useLeads();
+  // const [loading, setLoading] = useState<boolean>(false);
+  const { createLead, updateLead, isUpdating } = useLeads();
+  const { addToast, success } = useToast();
 
   const handleSubmit = async (
     values: LeadFormValues,
     helpers: FormikHelpers<LeadFormValues>,
   ) => {
     try {
-      setLoading(true);
+      // setLoading(true);
       // Transform form values to match backend expected format
       if (isEditMode) {
         const response = await updateLead(leadId, values);
+        success(response.resData.message || "Lead updated successfully", 2000);
         console.log("response updated !", response.resData);
       } else {
         const response = await createLead(values);
+        success(response.resData.message || "Lead created successfully", 2000);
         console.log("Lead created:", response);
       }
       helpers.resetForm();
       onCancel(); // Close modal after successful creation
     } catch (error) {
       console.error("Error creating lead:", error);
-    } finally {
-      setLoading(false);
+      addToast("Failed to create lead. Please try again.", "error");
     }
   };
   return (
@@ -279,11 +282,11 @@ const FormLead: React.FC<{
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || loading}
+                disabled={isSubmitting || isUpdating}
                 variant="secondary"
                 className="text-xs sm:text-sm"
               >
-                {isSubmitting || loading
+                {isUpdating
                   ? isEditMode
                     ? "Updating..."
                     : "Creating..."

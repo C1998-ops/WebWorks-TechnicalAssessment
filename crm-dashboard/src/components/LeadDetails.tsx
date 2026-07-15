@@ -34,7 +34,6 @@ interface LeadData {
   activities?: Array<{ icon?: string; text: string; time: string }>;
 }
 
-
 const STATUS_STYLES: Record<
   string,
   { label: string; bg: string; color: string }

@@ -10,6 +10,7 @@ export const transformedCustomers = (data: DatabaseCustomer[]) => {
       company: dbCustomer.company || "N/A",
       address: dbCustomer.address || "N/A",
       notes: dbCustomer.notes || "",
+      isActive: dbCustomer.is_active === 1 ? "Active" : "In-Active",
       createdAt: new Date(dbCustomer.created_at).toLocaleDateString(),
       updatedAt: new Date(dbCustomer.updated_at).toLocaleDateString(),
     })

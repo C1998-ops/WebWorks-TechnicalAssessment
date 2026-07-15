@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../../public/favicon.svg";
+import { Link, useLocation } from "react-router-dom";
+import logo from "/favicon.svg";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { clearAuthSession } from "@/utils/authState";
@@ -13,9 +13,11 @@ interface NavItem {
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, isAuthenticated } = useUserInfo();
+  const location = useLocation();
   const navItems: NavItem[] = [
-    { label: "Leads", path: "/leads" },
-    { label: "About", path: "/about" },
+    { label: "Leads", path: "/dashboard" },
+    { label: "Creator", path: "/Creators" },
+    // { label: "About", path: "/about" },
   ];
 
   const toggleMobileMenu = () => {
@@ -39,18 +41,24 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-4 lg:space-x-1 xl:space-x-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className="text-primary-navy px-3 py-2 rounded-md t lg:text-xs xl:text-body-bold transition-colors"
-              >
-                <div className="flex items-center space-x-1 whitespace-nowrap">
-                  {item.label}
-                  {/* <BiCaretDown className="w-4 h-4" /> */}
-                </div>
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive = location.pathname == item?.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`text-primary-navy px-3 py-2 rounded-md lg:text-xs xl:text-body-bold transition-colors ${
+                    isActive
+                      ? "bg-[#00276B] text-primary-navy border border-[#6374EA] shadow-[0_0_12px_0_rgba(99,116,234,0.35)]"
+                      : "text-medium hover:bg-white/10 border border-transparent"
+                  }`}
+                >
+                  <div className="flex items-center space-x-1 whitespace-nowrap">
+                    {item.label}
+                  </div>
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop Auth Buttons */}
@@ -92,13 +100,15 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-0 z-50 transform ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform duration-300 ease-in-out`}
+        className={`lg:hidden fixed inset-0 z-50 transform ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 ease-in-out`}
       >
         {/* Backdrop */}
         <div
-          className={`fixed inset-0 bg-black bg-opacity-50 ${isMobileMenuOpen ? "opacity-100" : "opacity-0"
-            } transition-opacity duration-300`}
+          className={`fixed inset-0 bg-black bg-opacity-50 ${
+            isMobileMenuOpen ? "opacity-100" : "opacity-0"
+          } transition-opacity duration-300`}
           onClick={toggleMobileMenu}
         />
 
@@ -116,18 +126,24 @@ const Header: React.FC = () => {
             </div>
 
             <nav className="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className="block text-primary-navy px-3 py-2 rounded-md text-body-bold hover:bg-gray-50"
-                  onClick={toggleMobileMenu}
-                >
-                  <div className="flex items-center justify-between whitespace-nowrap">
-                    {item.label}
-                  </div>
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = location.pathname == item?.path;
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`text-primary-navy px-3 py-2 transition-colors ${
+                      isActive
+                        ? "bg-[#00276B] text-primary-navy border-[#6374EA] shadow-inner]"
+                        : "text-medium hover:bg-white/10 border border-transparent"
+                    }`}
+                  >
+                    <div className="flex items-center space-x-1 whitespace-nowrap">
+                      {item.label}
+                    </div>
+                  </Link>
+                );
+              })}
             </nav>
 
             <div className="p-4 border-t space-y-2 text-center">

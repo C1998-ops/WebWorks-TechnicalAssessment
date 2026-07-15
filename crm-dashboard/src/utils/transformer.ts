@@ -32,7 +32,7 @@ export const transformedLeads = (data: Lead[]) => {
     budget: dbLead.estimated_value
       ? currencyConverter(dbLead.estimated_value)
       : "N/A",
-    estimated_value: dbLead.estimated_value,
+    estimated_value: dbLead.estimated_value || 0,
     owner: "Unassigned",
     lastActivity: new Date(dbLead.updated_at).toLocaleDateString(),
     notes: dbLead.notes

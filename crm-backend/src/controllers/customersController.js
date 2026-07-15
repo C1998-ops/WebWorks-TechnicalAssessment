@@ -82,15 +82,15 @@ function get(req, res, next) {
 function create(req, res, next) {
   try {
     const db = getDB();
-    const { name, email, phone, company, address, notes } = req.body;
+    const { name, email, phone, company, address, notes, is_active } = req.body;
 
     const id = uuidv4();
     db.prepare(
       `
-      INSERT INTO customers (id, name, email, phone, company, address, notes, created_by)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO customers (id, name, email, phone, company, address, notes, is_active, created_by)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
-    ).run(id, name, email, phone, company, address, notes, req.user.id);
+    ).run(id, name, email, phone, company, address, notes, is_active ?? 1, req.user.id);
 
     const customer = db.prepare(`${BASE_SELECT} WHERE c.id = ?`).get(id);
 
@@ -112,7 +112,7 @@ function update(req, res, next) {
         .json({ success: false, message: "Customer not found" });
     }
 
-    const { name, email, phone, company, address, notes } = req.body;
+    const { name, email, phone, company, address, notes, is_active } = req.body;
 
     db.prepare(
       `
@@ -123,10 +123,11 @@ function update(req, res, next) {
           company        = COALESCE(?, company),
           address        = COALESCE(?, address),
           notes          = COALESCE(?, notes),
+          is_active      = COALESCE(?, is_active),
           updated_at     = datetime('now')
       WHERE id = ?
     `,
-    ).run(name, email, phone, company, address, notes, req.params.id);
+    ).run(name, email, phone, company, address, notes, is_active, req.params.id);
 
     const updatedCustomer = db.prepare(`${BASE_SELECT} WHERE c.id = ?`).get(req.params.id);
 

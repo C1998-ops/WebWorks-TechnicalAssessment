@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
-import Logo from "../../../public/favicon.svg";
+import Logo from "/favicon.svg";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { __fetch } from "../../components/FetchApi";
 import { useToast } from "@/hooks/useToast";
@@ -16,7 +16,7 @@ const RegisterSchema = Yup.object().shape({
     .required("Password is required"),
   role: Yup.string()
     .required("Please select a valid role")
-    .oneOf(["Super Admin", "Admin", "Agent"], "Please select a valid role"),
+    .oneOf(["super_admin", "admin", "agent"], "Please select a valid role"),
 });
 
 interface RegisterFormValues {
@@ -46,7 +46,7 @@ const registerOptions: Array<{ label: string; value: string }> = [
 function Register() {
   const [selectedRole, setSelectedRole] = useState<string | "">("");
   const navigate = useNavigate();
-  const { addToast } = useToast();
+  const { addToast, error } = useToast();
   const handleSubmit = async (
     values: RegisterFormValues,
     {
@@ -69,20 +69,21 @@ function Register() {
         },
       });
       if (response.ok && response.resData) {
-        const { user, token } = response.resData.data
-        localStorage.setItem(
-          "user",
-          JSON.stringify(user),
-        );
+        const { user, token } = response.resData.data;
+        localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("token", token);
-        addToast(response.resData.message || "Registration Successfull!", "success")
+        addToast(
+          response.resData.message || "Registration Successfull!",
+          "success",
+        );
         navigate("/dashboard");
       }
-    } catch (error: any) {
-      console.error("Registration error:", error);
+    } catch (err: any) {
+      console.error("Registration error:", err);
       setErrors({
-        email: error.textReturned || "Registration failed. Please try again.",
+        email: err.textReturned || "Registration failed. Please try again.",
       });
+      error(err.textReturned || "Registration failed. Please try again.", 2000);
     } finally {
       setSubmitting(false);
     }

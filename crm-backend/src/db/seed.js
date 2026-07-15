@@ -34,13 +34,7 @@ async function seed() {
 
   const agentId = uuidv4();
   const agentHash = await bcrypt.hash("agent123", 10);
-  insertUser.run(
-    agentId,
-    "Sales Agent",
-    "agent@test.com",
-    agentHash,
-    "agent",
-  );
+  insertUser.run(agentId, "Sales Agent", "agent@test.com", agentHash, "agent");
 
   // Get actual agent ID from database (in case it already existed)
   const agentResult = db
@@ -52,8 +46,8 @@ async function seed() {
   const c1 = uuidv4();
   const c2 = uuidv4();
   const insertCustomer = db.prepare(`
-    INSERT OR IGNORE INTO customers (id, name, email, phone, company,address, created_by)
-    VALUES (?, ?, ?, ?, ?, ?,?)
+    INSERT OR IGNORE INTO customers (id, name, email, phone, company,address,notes,is_active, created_by)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
   insertCustomer.run(
     c1,
@@ -62,6 +56,8 @@ async function seed() {
     "+91-9876543210",
     "Acme Corp",
     "Nagarbhavi",
+    "Notes for Acme corp",
+    0,
     actualAdminId,
   );
   insertCustomer.run(
@@ -71,6 +67,8 @@ async function seed() {
     "+91-9123456789",
     "TechStart Ltd",
     "Electronic City ph-2",
+    "Notes for TechStart Ltd",
+    1,
     actualAdminId,
   );
 

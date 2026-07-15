@@ -14,6 +14,10 @@ const customerValidation = [
     .isEmail()
     .normalizeEmail()
     .withMessage("Valid email required"),
+  body("is_active")
+    .optional()
+    .isInt({ min: 0, max: 1 })
+    .withMessage("is_active must be 0 or 1"),
   validate,
 ];
 

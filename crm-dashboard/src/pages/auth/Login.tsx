@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Button from "../../components/Button";
-import Logo from "../../../public/favicon.svg";
+import Logo from "/favicon.svg";
 import { __fetch } from "@/components/FetchApi";
 import { setAuthSession } from "../../utils/authState";
 import { useToast } from "@/hooks/useToast";

@@ -46,6 +46,7 @@ const seedLeads: DisplayLead[] = [
     status: "new",
     priority: "High",
     budget: "₹85L",
+    estimated_value: 8500000,
     // owner: "Aarav",
     lastActivity: "Today, 10:30 AM",
     notes: [
@@ -76,6 +77,7 @@ const seedLeads: DisplayLead[] = [
     status: "assigned-leads",
     priority: "High",
     budget: "₹1.2Cr",
+    estimated_value: 12000000,
     // owner: "Meera",
     lastActivity: "Yesterday",
     notes: [
@@ -102,6 +104,7 @@ const seedLeads: DisplayLead[] = [
     status: "converted-leads",
     priority: "Medium",
     budget: "₹62L",
+    estimated_value: 6200000,
     // owner: "Nikhil",
     lastActivity: "Jun 25",
     notes: [
@@ -161,7 +164,7 @@ function Dashboard() {
   const [modalParent, setModalParent] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
-  const { leads, isLoading, isError } = useLeads();
+  const { leads, isLoading } = useLeads();
 
   const filteredLeads = useMemo(() => {
     const baseLeads = leads ?? seedLeads;
@@ -169,7 +172,11 @@ function Dashboard() {
     let leadsData =
       activeFilter === "all"
         ? baseLeads
-        : baseLeads.filter((lead: DisplayLead) => lead.status.toLowerCase() === activeFilter.toLowerCase() as string);
+        : baseLeads.filter(
+            (lead: DisplayLead) =>
+              lead.status.toLowerCase() ===
+              (activeFilter.toLowerCase() as string),
+          );
 
     if (searchQuery) {
       leadsData = leadsData.filter((lead: DisplayLead) =>
@@ -205,7 +212,7 @@ function Dashboard() {
       status: selectedLead.status.toLowerCase().replace(" ", "-") as string,
       priority: selectedLead.priority.toLowerCase() as string,
       // owner: selectedLead.owner,
-      estimated_value: Number(selectedLead.estimated_value) || 0,
+      estimated_value: selectedLead.estimated_value,
       lastActivity: selectedLead.lastActivity,
       notes: selectedLead.notes,
       activities: selectedLead.activities,
@@ -272,9 +279,7 @@ function Dashboard() {
             type="button"
             aria-label={`View ${row.name}`}
             title="View lead"
-            onClick={() => {
-              setSelectedLead(row);
-            }}
+            onClick={() => setSelectedLead(row)}
             className="inline-flex h-8 w-8 items-center justify-center rounded-full text-primary-navy transition hover:bg-neutral-navy-light focus:bg-neutral-navy-light focus:outline-none"
           >
             <FiEye size={16} />
@@ -387,26 +392,27 @@ function Dashboard() {
             const count =
               filter === "all"
                 ? baseLeads.length
-                : baseLeads.filter(
-                  (lead: any) => lead.status === filter,
-                ).length;
+                : baseLeads.filter((lead: any) => lead.status === filter)
+                    .length;
             const isActive = activeFilter === filter;
             return (
               <button
                 key={filter}
                 type="button"
                 onClick={() => setActiveFilter(filter)}
-                className={`inline-flex items-center gap-2 rounded-md border px-2 py-1.5 text-sm font-semibold transition ${isActive
-                  ? "border-primary-navy bg-primary-navy text-white shadow-sm"
-                  : "border-neutral-lightBorder bg-neutral-light text-primary-navy hover:border-primary-orange hover:text-primary-orange"
-                  }`}
+                className={`inline-flex items-center gap-2 rounded-md border px-2 py-1.5 text-sm font-semibold transition ${
+                  isActive
+                    ? "border-primary-navy bg-primary-navy text-white shadow-sm"
+                    : "border-neutral-lightBorder bg-neutral-light text-primary-navy hover:border-primary-orange hover:text-primary-orange"
+                }`}
               >
                 {filter}
                 <span
-                  className={`rounded-full px-2 py-0.5 text-xs ${isActive
-                    ? "bg-white/20 text-white"
-                    : "bg-white text-neutral-textGrey"
-                    }`}
+                  className={`rounded-full px-2 py-0.5 text-xs ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-white text-neutral-textGrey"
+                  }`}
                 >
                   {count}
                 </span>
@@ -419,8 +425,9 @@ function Dashboard() {
         <div className="flex gap-4 items-start min-w-0">
           {/* table — full width normally, flex-1 when panel is open */}
           <div
-            className={`overflow-x-auto min-w-0 transition-all duration-300 ${selectedLead ? "flex-1" : "w-full"
-              }`}
+            className={`overflow-x-auto min-w-0 transition-all duration-300 ${
+              selectedLead ? "flex-1" : "w-full"
+            }`}
           >
             <DataTable
               columns={columns}

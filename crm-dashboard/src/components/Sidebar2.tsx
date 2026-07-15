@@ -28,7 +28,7 @@ interface SidebarProps {
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Dashboard", path: "/dashboard" },
-  { label: "Leads", path: "/leads", badge: 24 },
+  { label: "Leads", path: "/leads" },
   { label: "Creators", path: "/Creators" },
 ];
 
@@ -70,7 +70,7 @@ const SidebarFreeUser: React.FC<SidebarProps> = ({
   };
 
   // Sidebar is "expanded" when open and not collapsed (desktop), or open on mobile/tablet
-  const expanded = (isMobile || isTablet) ? isOpen : isOpen && !isCollapsed;
+  const expanded = isMobile || isTablet ? isOpen : isOpen && !isCollapsed;
 
   // Sidebar translate / width
   const sidebarClasses = [

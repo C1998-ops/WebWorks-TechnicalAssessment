@@ -29,11 +29,21 @@ function migrate() {
       company       TEXT,
       address       TEXT,
       notes         TEXT,
+      is_active     INTEGER NOT NULL DEFAULT 1,
       created_by    TEXT REFERENCES users(id) ON DELETE SET NULL,
       created_at    TEXT NOT NULL DEFAULT (datetime('now')),
       updated_at    TEXT NOT NULL DEFAULT (datetime('now'))
     );
   `);
+
+  // try {
+  //   db.exec(`ALTER TABLE customers ADD COLUMN is_active INTEGER NOT NULL DEFAULT 1`);
+  // } catch (err) {
+  //   // Column already exists, ignore error
+  //   if (!err.message.includes('duplicate column name')) {
+  //     console.error('Error adding is_active column:', err.message);
+  //   }
+  // }
 
   // ── Leads ──────────────────────────────────────────────────────────────────
   db.exec(`
