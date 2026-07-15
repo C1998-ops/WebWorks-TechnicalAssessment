@@ -4,6 +4,7 @@ import logo from "/favicon.svg";
 import { HiMenu, HiX } from "react-icons/hi";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { clearAuthSession } from "@/utils/authState";
+import { ROLE_NAV_ITEMS } from "@/config/nav-items";
 
 interface NavItem {
   label: string;
@@ -19,7 +20,14 @@ const Header: React.FC = () => {
     { label: "Creator", path: "/Creators" },
     // { label: "About", path: "/about" },
   ];
-
+  const userRole = user?.role || "agent";
+  const allowedPaths =
+    ROLE_NAV_ITEMS[userRole as keyof typeof ROLE_NAV_ITEMS] ||
+    ROLE_NAV_ITEMS.agent;
+  const filteredNavItems = navItems.filter((item) =>
+    allowedPaths.includes(item.path),
+  );
+  console.log(filteredNavItems);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -41,7 +49,7 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex space-x-4 lg:space-x-1 xl:space-x-4">
-            {navItems.map((item) => {
+            {filteredNavItems.map((item) => {
               const isActive = location.pathname == item?.path;
               return (
                 <Link

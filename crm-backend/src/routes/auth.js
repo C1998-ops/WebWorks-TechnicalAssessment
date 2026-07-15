@@ -17,7 +17,7 @@ router.post(
     body("password").isLength({ min: 6 }).withMessage("Password min 6 chars"),
     body("role")
       .optional()
-      .isIn(["admin", "manager", "agent"])
+      .isIn(["admin", "super_admin", "agent"])
       .withMessage("Invalid role"),
     validate,
   ],
