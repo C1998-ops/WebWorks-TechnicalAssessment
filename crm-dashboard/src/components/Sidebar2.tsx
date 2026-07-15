@@ -7,6 +7,7 @@ import Button from "./Button";
 import { clearAuthSession } from "../utils/authState";
 import { useUserInfo } from "@/hooks/useUserInfo";
 import { initials } from "@/utils/transformer";
+import { ROLE_NAV_ITEMS } from "@/config/nav-items";
 
 interface NavItem {
   label: string;
@@ -49,6 +50,13 @@ const SidebarFreeUser: React.FC<SidebarProps> = ({
   const navigate = useNavigate();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { user } = useUserInfo();
+  const userRole = user?.role || "agent";
+  const allowedPaths =
+    ROLE_NAV_ITEMS[userRole as keyof typeof ROLE_NAV_ITEMS] ||
+    ROLE_NAV_ITEMS.agent;
+  const filteredNavItems = NAV_ITEMS.filter((item) =>
+    allowedPaths.includes(item.path),
+  );
   // Close on outside click (mobile/tablet)
   useEffect(() => {
     if ((!isMobile && !isTablet) || !isOpen) return;
@@ -105,7 +113,7 @@ const SidebarFreeUser: React.FC<SidebarProps> = ({
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-3 px-2 sidebar-scrollbar">
         <ul className="flex flex-col gap-1">
-          {NAV_ITEMS.map((item) => {
+          {filteredNavItems.map((item) => {
             const isActive = location.pathname === item.path;
             const tooltipLabel = item.tooltip || item.label;
 

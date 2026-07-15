@@ -5,6 +5,7 @@ import FormLead, { LeadFormValues } from "@/pages/FormLead";
 import { ModalParent } from "./ModalParent";
 import { useLeads } from "@/hooks/useLeads";
 import { initials } from "@/utils/transformer";
+import { useToast } from "@/hooks/useToast";
 
 interface LeadData {
   id?: string;
@@ -251,6 +252,7 @@ export default function LeadDetails({
   const [noteText, setNoteText] = useState("");
   const [leadEdit, setLeadEdit] = useState(false);
   const { deleteLead } = useLeads();
+  const { error, success } = useToast();
 
   function addNote() {
     if (!noteText.trim()) return;
@@ -301,7 +303,17 @@ export default function LeadDetails({
     };
   };
   const handleDeleteLead = async (id: string) => {
-    await deleteLead(id);
+    try {
+      await deleteLead(id);
+    } catch (err: any) {
+      console.log("Delete lead error:", err);
+      if (err.status === 403) {
+        const parseErr = JSON.parse(err.textReturned);
+        error(parseErr?.message || "Insufficient permissions", 2000);
+      } else {
+        error(err?.textReturned || "Failed to delete lead", 2000);
+      }
+    }
   };
   const TABS = ["notes", "history"];
 
